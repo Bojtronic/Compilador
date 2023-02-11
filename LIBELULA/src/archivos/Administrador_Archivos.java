@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 public class Administrador_Archivos {
     
-    public void readFile(){
+    public void leerArchivo(String ruta){
       File archivo = null;
       FileReader fr = null;
       BufferedReader br = null;
@@ -18,7 +18,7 @@ public class Administrador_Archivos {
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
          // hacer una lectura comoda (disponer del metodo readLine()).
-         archivo = new File ("\"RUTA AL ARCHIVO.....txt\"");
+         archivo = new File (ruta);
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
 
@@ -40,15 +40,15 @@ public class Administrador_Archivos {
          }catch (IOException e2){ 
             System.out.println(e2);
          }
-      }
+      }      
     }
     
-    public void createFile(){
+    public void crearArchivo(String ruta){
         FileWriter fichero = null;
         PrintWriter pw = null;
         try
         {
-            fichero = new FileWriter("RUTA AL ARCHIVO.....txt");
+            fichero = new FileWriter(ruta);
             pw = new PrintWriter(fichero);
 
             for (int i = 0; i < 10; i++)
