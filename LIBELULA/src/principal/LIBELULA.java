@@ -1,9 +1,10 @@
 // cd Documents\TRABAJO\Natalia_Granados\Compilador_Libelula\Compilador\LIBELULA\dist
-// java -jar LIBELULA.jar archivo.txt
+// java -jar LIBELULA.jar archivo.LID
 package principal;
 
 import archivos.Administrador_Archivos;
 import java.nio.file.Paths;
+
 
 
 public class LIBELULA {
@@ -26,13 +27,14 @@ public class LIBELULA {
             String nombre_Archivo = archivo[0];
             
             //Validar el nombre del archivo  -> nombre_correcto = t/f ///////////////////////
+            if ((nombre_correcto = admin_archivo.expresion_regular("\\.LID$", nombre_Archivo) == true) ) {
+              
+              System.out.println("extension LID correcta");
+              admin_archivo.leerArchivo(nombre_Archivo);
+            }
             
-            
-            if (nombre_correcto == true) {      /// ver linea 16 y 28
-                admin_archivo.leerArchivo(nombre_Archivo);
-            } else {
-                
-                //errores al intentar abrir el archivo
+            else{
+              System.out.println("extension incorrecta");
             }
         }
         

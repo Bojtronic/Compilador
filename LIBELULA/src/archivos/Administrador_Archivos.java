@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Administrador_Archivos {
     
@@ -66,5 +68,15 @@ public class Administrador_Archivos {
               System.out.println(e2);
            }
         }
+    }
+    
+    public boolean expresion_regular(String patron, String variable) {
+        Pattern pattern = Pattern.compile(patron);
+        Matcher matcher = pattern.matcher(variable);
+        boolean matchFound = matcher.find();
+        if (matchFound) {
+            return true;
+        }
+        return false;
     }
 }
