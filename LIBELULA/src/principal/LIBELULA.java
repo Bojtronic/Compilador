@@ -15,26 +15,23 @@ public class LIBELULA {
         Administrador_Archivos admin_archivo = new Administrador_Archivos();
         
         boolean nombre_correcto = true; /// ver linea 31 y 28
-                
-        
-        System.out.println(ruta);
-        
+                     
         
         //Si la persona ingresa espacios en blanco en el nombre, debe dar error porque args lo toma separado
-        if (archivo.length > 1) {
-            System.out.println("Error1 el nombre debe contener más de 1 caracter");
+        if (archivo.length < 1 ) {
+            System.out.println("Error no ha ingresado ningun archivo");
         } else {
             String nombre_Archivo = archivo[0];
-            
+            nombre_correcto = admin_archivo.verificar_nombre(nombre_Archivo);
             //Validar el nombre del archivo  -> nombre_correcto = t/f ///////////////////////
-            if ((nombre_correcto = admin_archivo.expresion_regular("\\.LID$", nombre_Archivo) == true) ) {
+            if ((nombre_correcto == true) ) {
               
-              System.out.println("extension LID correcta");
+      
               admin_archivo.leerArchivo(nombre_Archivo);
             }
             
             else{
-              System.out.println("extension incorrecta");
+              System.out.println("***  Archivo no valido  ***");
             }
         }
         
