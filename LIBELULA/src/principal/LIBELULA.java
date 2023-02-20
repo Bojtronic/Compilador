@@ -17,7 +17,7 @@ public class LIBELULA {
         boolean nombre_correcto = true; /// ver linea 31 y 28
                      
         
-        //Si la persona ingresa espacios en blanco en el nombre, debe dar error porque args lo toma separado
+        //Es cero si no se pasa el archivo
         if (archivo.length < 1 ) {
             System.out.println("Error no ha ingresado ningun archivo");
         } else {

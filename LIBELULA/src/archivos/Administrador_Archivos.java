@@ -1,6 +1,7 @@
 
 package archivos;
 
+import analisis.Lexico;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,6 +18,8 @@ public class Administrador_Archivos {
       File archivo = null;
       FileReader fr = null;
       BufferedReader br = null;
+      
+      Lexico lex = new Lexico();
 
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
@@ -27,8 +30,14 @@ public class Administrador_Archivos {
 
          // Lectura del fichero
          String linea;
-         while((linea=br.readLine())!=null)
-            System.out.println(linea);
+         String codigo_completo = "";
+         while((linea=br.readLine())!=null){
+           //System.out.println(linea);
+           codigo_completo += linea + "\n";
+         }
+         
+         System.out.println("\n"+"***  Esto es el resultado del analisis lexico que se usará para el analisis semantico  ***"+"\n");
+         System.out.println(lex.lex(codigo_completo));
       }
       catch(IOException e){
           System.out.println(e);
