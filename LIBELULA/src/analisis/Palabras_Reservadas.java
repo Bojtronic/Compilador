@@ -2,12 +2,15 @@ package analisis;
 
 
 
+//Falta los Arraylist de declaracion de comandos o caracteres especiales ademas de mayusculas
+
+
 public class Palabras_Reservadas {
 
     public static String[] palabras_reservadasLibelula
-            = {"BEGIN", "CHAR", "ELSE", "END ", "IF ", "INTEGER", " MODULE", " Read ",
-                "ReadInt ", "ReadReal", " REAL", "REPEAT", " RETURN", "THEN", "UNTIL", "VAR ",
-                "Write ", "WriteInt", " WriteLn ", "WriteReal", "WriteString"};
+            = {"BEGIN", "CHAR", "ELSE", "END ", "IF ", "INTEGER", " MODULE", "Read",
+                "ReadInt ", "ReadReal", "REAL", "REPEAT", "RETURN", "THEN", "UNTIL", "VAR",
+                "Write", "WriteInt", " WriteLn ", "WriteReal", "WriteString"};
 
     public static String[] palabras_reservadasmodula2
             = {"ABS", "ABSTRACT ", "AND ", "ARRAY", "AS ", "BEGIN ", "BITSET", "BOOLEAN ",
@@ -16,8 +19,8 @@ public class Palabras_Reservadas {
                 "GUARD ", "HALT", "HIGH ", "IF ", "IM ", "IMPLEMENTATION ", "IMPORT ", "IN ", "INC ", "INCL ", "INHERIT ", "INT", "INTEGER ", "INTERRUPTIBLE ",
                 "LENGTH ", "LFLOAT ", "LONGCOMPLEX", "LONGREAL", "LOOP", "MAX", "MIN ", "MOD", "MODULE", "NEW", "NIL", "NOT ", "ODD", " OF", " OR", "ORD",
                 "OVERRIDE", "PACKEDSET", "POINTER ", "PROC ", "PROCEDURE ", "PROTECTION ", "QUALIFIED", "RE ", "READONLY ", "REAL", " RECORD ", "REM ", "REPEAT",
-                " RETRY ", "RETURN ", "REVEAL", "SET ", "SIZE ", "THEN ", "TO ", "TRACED", " TRUE ", "TRUNC", " TYPE ", "UNINTERRUPTIBLE ", "UNSAFEGUARDED ", "UNTIL",
-                "VAL ", "VAR", " WHILE", "WITH"};
+                "RETRY", "RETURN ", "REVEAL", "SET ", "SIZE ", "THEN ", "TO ", "TRACED", " TRUE ", "TRUNC", " TYPE ", "UNINTERRUPTIBLE ", "UNSAFEGUARDED ", "UNTIL",
+                "VAL","VAR", " WHILE", "WITH"};
 
     public static String[] tipos_variables
             = {"INTEGER", "REAL", "CHAR"};
