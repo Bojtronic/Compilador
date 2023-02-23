@@ -3,7 +3,6 @@ package archivos;
 
 import analisis.Compilar;
 import analisis.Dato;
-import analisis.Lexico;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,8 +12,6 @@ import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Formatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Administrador_Archivos {
     
@@ -339,65 +336,5 @@ public class Administrador_Archivos {
             System.err.println("\n¡Se ha presentado un error!: " + e);
         }
     }
-    
-    
-    
-//    falta validar en el nombre del archivo y .LID
-    
-//  if ((verificar = regex("^_", nombre)) == true) {
-//            Datos miError = new Datos(contador, true,Error, el nombre del archivo empieza con un _");
-//            arregloConErrores.add(miError);
-//            contador++;
-//            valido = false; //bandera
-//            //No terminar con guion bajo   
-//        }
-//        
-//        if ((verificar = regex("_$", nombre)) == true) {
-//            Datos miError = new Datos(contador, true, "Error, el nombre del archivo termina con un _");
-//            arregloConErrores.add(miError);
-//            contador++;
-//            valido = false; //bandera
-//            //verificar la extension del archivo
-//        }
-//        
-//        if ((verificar = regex("\\.MINGOL$", nombre) == true) && (verificar = regex("\\.{2,}", nombre) == true)) {
-//            Datos miError = new Datos(contador, true, "Error, el nombre del archivo tiene dos puntos o más");
-//            arregloConErrores.add(miError);
-//            contador++;
-//            valido = false; //bandera
-//        }
-//        
-//        if ((verificar = regex("\\.$", nombre)) == true) {
-//            Datos miError = new Datos(contador, true, "Error, el nombre termina en punto y no tiene extension");
-//            arregloConErrores.add(miError);
-//            contador++;
-//            valido = false; //bandera
-//        }
-//        
-//        //si tiene extension diferente de MINGOL o mingol
-//        if ((verificar = regex("\\.(?:mingol$|MINGOL$)", nombre) == false) && (verificar = regex("\\.(\\w+)", nombre) == true)) {
-//            Datos miError = new Datos(contador, true, "Error, el nombre del archivo tiene una extensión inválida");
-//            arregloConErrores.add(miError);
-//            contador++;
-//            valido = false; //bandera
-//        }
-//        
-//        //si es valido y tiene extension correcta, solo lo asignamos a la variable estatica global
-//        if ((valido == true) && ((verificar = regex("\\.MINGOL$", nombre)) == true)) {
-//            nombreValidado = nombre;
-//        }
-//        
-//        //si tiene un .mingol lo pasamos a .MINGOL
-//        if ((verificar = regex("\\.mingol$", nombre) == true)) {
-//            nombreValidado = nombre.replace(".mingol", ".MINGOL");
-//        }
-//        
-//        //si no tiene extension y es un nombre valido, le agregamos .MINGOL
-//        if ((valido == true) && ((verificar = regex("\\.$", nombre)) == false) && ((verificar = regex("\\.(?:mingol$|MINGOL$)", nombre)) == false)) {
-//            nombreValidado = nombre + ".MINGOL";
-//        }
-//    
-    
-    
-    
+        
 }

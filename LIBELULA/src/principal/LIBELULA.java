@@ -11,7 +11,7 @@ public class LIBELULA {
 
     public static void main(String[] archivo) throws InterruptedException {
         String path = Paths.get("").toAbsolutePath().toString(); //El primer argumento enviado por el cmd se almacena en una variable
-        String ruta = "/"+path;
+        
         Administrador_Archivos admin_archivo = new Administrador_Archivos();
         
         boolean nombre_correcto = true; /// ver linea 31 y 28
