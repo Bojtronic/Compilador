@@ -45,43 +45,9 @@ public class Administrador_Archivos {
       BufferedReader br = null;
             
       
-      
-      
-      copiar_archivo_original(ruta, nombre_archivo);
-      analizar_archivo();
+        copiar_archivo_original(ruta, nombre_archivo);
+        analizar_archivo();
 
-      try {
-         // Apertura del fichero y creacion de BufferedReader para poder
-         // hacer una lectura comoda (disponer del metodo readLine()).
-         archivo = new File (ruta);
-         fr = new FileReader (archivo);
-         br = new BufferedReader(fr);
-
-         // Lectura del fichero
-         String linea;
-         //String codigo_completo = "";
-         while((linea=br.readLine())!=null){
-           //System.out.println(linea);
-           //codigo_completo += linea + "\n";
-         }
-         
-         //System.out.println("\n"+"***  Esto es el resultado del analisis lexico que se usará para el analisis semantico  ***"+"\n");
-         //System.out.println(lex.lex(codigo_completo));
-      }
-      catch(IOException e){
-          System.out.println(e);
-      }finally{
-         // En el finally cerramos el fichero, para asegurarnos
-         // que se cierra tanto si todo va bien como si salta 
-         // una excepcion.
-         try{                    
-            if( null != fr ){   
-               fr.close();     
-            }                  
-         }catch (IOException e2){ 
-            System.out.println(e2);
-         }
-      }      
     }
     
     public void crearArchivo(String ruta){
@@ -162,7 +128,7 @@ public class Administrador_Archivos {
             ERRORES_DURANTE_COMPILACION.add(miError);
             contador++;
             valido = false; //bandera
-            //No iniciar con guion bajo
+            
         }
         
         if ((verificar = compilar.expresion_regular("^_", nombre_archivo)) == true) {
@@ -222,7 +188,7 @@ public class Administrador_Archivos {
     }
     
     
-    
+    // funciones de clase compilar
     public void analizar_archivo() {
         compilar.verificar_Comentarios();
         compilar.verificar_BeginEnd();
