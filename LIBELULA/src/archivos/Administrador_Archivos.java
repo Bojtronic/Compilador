@@ -1,6 +1,8 @@
 
 package archivos;
 
+import analisis.Compilar;
+import analisis.Dato;
 import analisis.Lexico;
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,17 +11,47 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Administrador_Archivos {
     
-    public void leerArchivo(String ruta){
+  Compilar compilar = new Compilar();
+  
+  ArrayList<Dato> INFORMACION_RECIBIDA = new ArrayList<Dato>();
+  public static ArrayList<Dato> ERRORES_DURANTE_COMPILACION = new ArrayList<Dato>();
+  public static ArrayList<String> CONTENIDO_ORIGINAL = new ArrayList<String>();
+   ArrayList<String> CONTENIDO_CON_ERRORES = new ArrayList<String>();
+  
+  public static String nombreVerificado = "";
+  
+  String nombre_archivo_verificado = "";
+  String path = "";
+  
+  private void setNombreArchivo(String nombre_archivo){
+    this.nombre_archivo_verificado = nombre_archivo;
+  }
+  
+  private void setPath(String ruta){
+    this.path = ruta;
+  }
+      
+    public void leerArchivo(String nombre_archivo, String ruta){
+      
+      setNombreArchivo(nombre_archivo);
+      setPath(ruta);
+      
       File archivo = null;
       FileReader fr = null;
       BufferedReader br = null;
+            
       
-      Lexico lex = new Lexico();
+      
+      
+      copiar_archivo_original(ruta, nombre_archivo);
+      analizar_archivo();
 
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
@@ -30,14 +62,14 @@ public class Administrador_Archivos {
 
          // Lectura del fichero
          String linea;
-         String codigo_completo = "";
+         //String codigo_completo = "";
          while((linea=br.readLine())!=null){
            //System.out.println(linea);
-           codigo_completo += linea + "\n";
+           //codigo_completo += linea + "\n";
          }
          
-         System.out.println("\n"+"***  Esto es el resultado del analisis lexico que se usará para el analisis semantico  ***"+"\n");
-         System.out.println(lex.lex(codigo_completo));
+         //System.out.println("\n"+"***  Esto es el resultado del analisis lexico que se usará para el analisis semantico  ***"+"\n");
+         //System.out.println(lex.lex(codigo_completo));
       }
       catch(IOException e){
           System.out.println(e);
@@ -80,54 +112,236 @@ public class Administrador_Archivos {
         }
     }
     
-    private boolean expresion_regular(String patron, String variable) {
-        Pattern pattern = Pattern.compile(patron);
-        Matcher matcher = pattern.matcher(variable);
-        boolean matchFound = matcher.find();
-        if (matchFound) {
-            return true;
+    
+    
+    
+    public void copiar_archivo_original(String pRuta, String nombreVerificado) {
+      File archivo = null;
+      FileReader fr = null;
+      BufferedReader br = null;
+        String texto;
+        try {
+            String aux = pRuta + "\\" + nombreVerificado;
+            archivo = new File(aux); //Se le pasa la ruta al objeto File
+            //Se crea el bufferedReader
+            br = new BufferedReader(new FileReader(archivo));
+            while ((texto = br.readLine()) != null) { //Se recorre el archivo linea por linea
+                CONTENIDO_ORIGINAL.add(texto); //Se agrega el contenido del archivo a un arrayList
+            }
+            br.close(); //Se cierra la lectura
+        } catch (IOException e) {
+            System.out.println("Error al leer archivo." + e);
+        }
+    }
+    
+    
+    
+    public boolean verificar_nombre(String nombre_archivo){
+      int contador = 1;
+        String[] dividirNombre = new String[10];
+        boolean verificar = true; 
+        boolean valido = true;
+        
+        if (verificar) {
+            dividirNombre = nombre_archivo.split("\\.");
+            if (dividirNombre[0].length() > 20) {
+                Dato miError = new Dato(contador, true, "Error, el nombre del archivo contiene más de 20 caracteres");
+                ERRORES_DURANTE_COMPILACION.add(miError);
+                contador++;
+                valido = false; //bandera
+            }
+        }
+        
+        if ((verificar = compilar.expresion_regular("^[0-9]", nombre_archivo)) == true) {
+            Dato miError = new Dato(contador, true, "Error, el nombre del archivo inicia con número");
+            ERRORES_DURANTE_COMPILACION.add(miError);
+            contador++;
+            valido = false; //bandera
+            //No usar otros caracteres especiales, si acepta puntos
+        }
+        
+        if ((verificar = compilar.expresion_regular("[^\\w\\.]", nombre_archivo)) == true) {
+            Dato miError = new Dato(contador, true, "Error, el nombre del archivo tiene caracteres especiales");
+            ERRORES_DURANTE_COMPILACION.add(miError);
+            contador++;
+            valido = false; //bandera
+            //No iniciar con guion bajo
+        }
+        
+        if ((verificar = compilar.expresion_regular("^_", nombre_archivo)) == true) {
+            Dato miError = new Dato(contador, true, "Error, el nombre del archivo empieza con un _");
+            ERRORES_DURANTE_COMPILACION.add(miError);
+            contador++;
+            valido = false; //bandera
+            //No terminar con guion bajo   
+        }
+        
+        if ((verificar = compilar.expresion_regular("_$", nombre_archivo)) == true) {
+            Dato miError = new Dato(contador, true, "Error, el nombre del archivo termina con un _");
+            ERRORES_DURANTE_COMPILACION.add(miError);
+            contador++;
+            valido = false; //bandera
+            //verificar la extension del archivo
+        }
+        
+        if ((verificar = compilar.expresion_regular("\\.LID$", nombre_archivo) == true) && (verificar = compilar.expresion_regular("\\.{2,}", nombre_archivo) == true)) {
+            Dato miError = new Dato(contador, true, "Error, el nombre del archivo tiene dos puntos o más");
+            ERRORES_DURANTE_COMPILACION.add(miError);
+            contador++;
+            valido = false; //bandera
+        }
+        
+        if ((verificar = compilar.expresion_regular("\\.$", nombre_archivo)) == true) {
+            Dato miError = new Dato(contador, true, "Error, el nombre termina en punto y no tiene extension");
+            ERRORES_DURANTE_COMPILACION.add(miError);
+            contador++;
+            valido = false; //bandera
+        }
+        
+        //si tiene extension diferente de MINGOL o mingol
+        if ((verificar = compilar.expresion_regular("\\.(?:lid$|LID$)", nombre_archivo) == false) && (verificar = compilar.expresion_regular("\\.(\\w+)", nombre_archivo) == true)) {
+            Dato miError = new Dato(contador, true, "Error, el nombre del archivo tiene una extensión inválida");
+            ERRORES_DURANTE_COMPILACION.add(miError);
+            contador++;
+            valido = false; //bandera
+        }
+        
+        //si es valido y tiene extension correcta, solo lo asignamos a la variable estatica global
+        if ((valido == true) && ((verificar = compilar.expresion_regular("\\.LID$", nombre_archivo)) == true)) {
+            nombreVerificado = nombre_archivo;
+        }
+        
+        //si tiene un .mingol lo pasamos a .MINGOL
+        if ((verificar = compilar.expresion_regular("\\.lid$", nombre_archivo) == true)) {
+            nombreVerificado = nombre_archivo.replace(".lid", ".LID");
+        }
+        
+        //si no tiene extension y es un nombre valido, le agregamos .MINGOL
+        if ((valido == true) && ((verificar = compilar.expresion_regular("\\.$", nombre_archivo)) == false) && ((verificar = compilar.expresion_regular("\\.(?:lid$|LID$)", nombre_archivo)) == false)) {
+            nombreVerificado = nombre_archivo + ".LID";
+        }
+        
+        return valido;
+    }
+    
+    
+    
+    public void analizar_archivo() {
+        compilar.verificar_Comentarios();
+        compilar.verificar_BeginEnd();
+        compilar.verificar_Advertencias();
+        compilar.verificar_LargoLinea();
+        compilar.verificar_PalabrasReservadas();
+        compilar.verificar_Variables();
+        compilar.verificar_Multilineas();
+        
+        
+        if (!ERRORES_DURANTE_COMPILACION.isEmpty()) {
+            if (revisar_Errores()) {
+                MostrarDatos();
+                crearArchivo();
+                abrirArchivoErrores();
+            } else {
+                MostrarDatos();
+                crearArchivo();
+                abrirArchivoErrores();
+                compilar.invocarCompiladorAlgol(nombre_archivo_verificado, this.path);
+            }
+        } else {
+            compilar.invocarCompiladorAlgol(nombre_archivo_verificado, this.path);
+        }
+    }
+    
+    
+    //Método para validar si hay algún error_Linea registrado. 
+    public boolean revisar_Errores() {
+        for (Dato linea : ERRORES_DURANTE_COMPILACION) {
+            if (linea.hasError) {
+                return linea.hasError;
+            }
         }
         return false;
     }
+
     
-    public boolean verificar_nombre(String nombre_archivo){
-      boolean extension = expresion_regular("\\.LID$", nombre_archivo);
-      if(extension == true){
-        System.out.println("Extension .LID correcta");
-      }
-      else{
-        System.out.println("La extension del archivo es incorrecta");
-      }
-      
-      String[] nombre_sin_extension = nombre_archivo.split("\\.");
-      boolean longitud = false;
-      int longitud_del_nombre = nombre_sin_extension[0].length();
-      if(longitud_del_nombre>1 && longitud_del_nombre<21){
-        System.out.println("La longitud del nombre esta permitida");
-        System.out.println("La longitud es: " + longitud_del_nombre);
-        longitud = true;
-      }
-      else{
-        System.out.println("La longitud es incumple el requerimiento de 20 caracteres como maximo");
-      }
-      
-      boolean inicia_con_numero = expresion_regular("^[0-9]", nombre_archivo);
-      if(inicia_con_numero == true){
-        System.out.println("El nombre inicia con un numero");
-      }
-      
-      boolean carateres_especiales = expresion_regular("[^\\w\\.]", nombre_archivo);
-      if(carateres_especiales == true){
-        System.out.println("El nombre del archivo no debe contener carateres especiales");
-      }
-      
-      if(extension==true && longitud==true && inicia_con_numero==false && carateres_especiales==false){
-        return true;
-      }
-      else{
-        return false;
-      }
+    
+    
+    
+    
+    
+    //Impresión de datos. 
+    public void MostrarDatos() {
+        int contador = 0;
+        System.out.println("Nombre de archivo: " + nombre_archivo_verificado);
+        //imprimimos en pantalla arreglo original
+        System.out.println("\nContenido Original");
+        for (String miLinea : CONTENIDO_ORIGINAL) {
+            System.out.println(formatoInt(contador) + " " + miLinea);
+            contador++;
+        }
+        //imprimimos en pantalla arreglo con errores
+        System.out.println("\nErrores encontrados:");
+        for (Dato lineaError : ERRORES_DURANTE_COMPILACION) {
+            System.out.println(formatoInt(lineaError.getLineNumber()) + " " + lineaError.getLineInfo());
+        }
+
+        //imprimimos en pantalla arreglo con errores
+        System.out.println("\n\nCombinación de Contenido Original y Errores:");
+        contador = 0;
+        for (String miLinea : CONTENIDO_ORIGINAL) {
+            System.out.println(formatoInt(contador) + " " + miLinea);
+            CONTENIDO_CON_ERRORES.add(formatoInt(contador) + " " + miLinea);
+            //mandamos a buscar la linea por el indice
+            for (int i = 0; i < ERRORES_DURANTE_COMPILACION.size(); i++) {
+                if (ERRORES_DURANTE_COMPILACION.get(i).lineNumber == contador) {
+                    //encontro un error_Linea, imprimalo
+                    //si tiene muchos errores esa linea imprimiria todos los que encuentre
+                    System.out.println(ERRORES_DURANTE_COMPILACION.get(i).lineInfo);
+                    CONTENIDO_CON_ERRORES.add(ERRORES_DURANTE_COMPILACION.get(i).lineInfo);
+                }
+            }
+            contador++;
+        }
     }
+    
+    
+    
+    //Formato con ceros para número de índice
+    public static String formatoInt(int num) {
+        Formatter obj = new Formatter();
+        return String.valueOf(obj.format("%05d", num));
+    }
+    
+    
+    
+    
+    //Método para crear el archivo
+    public void crearArchivo() {
+        File archivoErrores = new File(nombre_archivo_verificado.substring(0, nombre_archivo_verificado.indexOf(".")) + "-errores.txt");
+        try {
+            FileWriter guardar = new FileWriter(archivoErrores);
+            for (String linea : CONTENIDO_CON_ERRORES) {
+                guardar.write(linea + "\n");
+            }
+            guardar.close();
+        } catch (Exception e) {
+        }
+    }
+    
+    
+    
+    //Método para abrir el archivo
+    public void abrirArchivoErrores() {
+        Runtime rs = Runtime.getRuntime();
+        try {
+            rs.exec("notepad " + Paths.get("").toAbsolutePath().toString() + "\\" + nombre_archivo_verificado.substring(0, nombre_archivo_verificado.indexOf(".")) + "-errores.txt");
+        } catch (IOException e) {
+            System.err.println("\n¡Se ha presentado un error!: " + e);
+        }
+    }
+    
+    
+    
 //    falta validar en el nombre del archivo y .LID
     
 //  if ((verificar = regex("^_", nombre)) == true) {

@@ -6,29 +6,30 @@ package analisis;
 
 
 public class Dato {
-
-    public int numero_Linea;
-    public boolean falla_Linea;
-    public String info_Linea;
-
-    public Dato(int numero_Linea, boolean falla_Linea, String info_Linea) {
-        this.numero_Linea = numero_Linea;
-        this.falla_Linea = falla_Linea;
-        this.info_Linea = info_Linea;
-    }
     
-    public int getNumero_Linea() {
-        return numero_Linea;
-    }
-
-    public boolean getError_Linea() {
-        return falla_Linea;
-    }
-
-    public String getInformacion_Linea() {
-        return info_Linea;
-    }
-
+    public String lineInfo;
+    public int lineNumber; 
+    public boolean hasError;
+     
 
     
+    public Dato(int lineNumber, boolean hasError, String lineInfo) {
+        this.lineInfo = lineInfo;
+        this.lineNumber = lineNumber;
+        this.hasError = hasError;
+        
+    }
+
+    public boolean hasError() {
+        return hasError;
+    }
+   
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    
+    public String getLineInfo() {
+        return lineInfo;
+    }
 }

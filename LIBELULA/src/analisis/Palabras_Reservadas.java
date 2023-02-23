@@ -1,11 +1,43 @@
 package analisis;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 
 //Falta los Arraylist de declaracion de comandos o caracteres especiales ademas de mayusculas
 
 
 public class Palabras_Reservadas {
+  
+  public static ArrayList<String> PalabrasReservadas_ALGOL = new ArrayList<String>();
+  public static ArrayList<String> PalabrasReservadas_Mayus = new ArrayList<String>(); //ArrayList donde estaran las palabras reservadas de ALGOL en mayuscula  
+  public static ArrayList<String> Comandos = new ArrayList<>();
+  public static ArrayList<String> TiposDeVariables = new ArrayList<String>();
+  
+  
+  
+  public Palabras_Reservadas(){
+     Collections.addAll(PalabrasReservadas_ALGOL, "ABS", "AND", "ARG", "BEGIN", "BIN", "BITS", "BOOL", "BYTES", "CHANNEL", "CHAR", "COMMENT", "COMPL", "COMPLEX", "CONJ", "DET", "DIVAB", "DO", "DOUBLE", "DOWN", "DYAD", "ELEM", "ELSIF", "END", "ENTIER", "EQ", "FALSE",
+                "FILE", "FLEX", "FORMAT", "GE", "GT", "IM", "INT", "INV", "LE", "LENG", "LIBRARY", "LONG", "LT", "LWB", "MINUSAB", "MOD", "MODAB", "MODE", "NE", "NIL", "NORM", "NOT", "ODD", "OP", "OR", "OVER", "OVERAB", "PIPE", "PLUSAB", "PLUSTO", "PR", "PRAGMAT", "PRELUDE",
+                "PRIO", "PROC", "RE", "REAL", "REF", "REPEAT", "REPR", "ROUND", "ROW", "RETURN", "SEMA", "SHL", "SHORT", "SHORTEN", "SHR", "SIGN", "SKIP", "SOUND", "STANDARD", "STRING", "STRUCT", "TIMESAB", "TRACE", "TRUE", "TRANSPUT", "UP", "UPB", "VOID", "WHILE", "XOR", "a68g",
+                "abend", "abort", "abs", "airy", "alnum", "alpha", "angle", "arccos", "arccosh", "arcsin", "arcsinh", "arctan", "arctan2", "arctanh", "argc", "argv", "aspect", "associate", "back", "background", "backspace", "bessel", "beta", "bin", "blank", "break", "channel",
+                "cholesky", "circle", "clear", "clock", "close", "cntrl", "collect", "collections", "colour", "columns", "cos", "cosh", "cpu", "create", "curses", "curt", "debug", "digit", "draw", "elliptic", "eof", "eoln", "erase", "erf", "error", "establish", "evaluate", "execve",
+                "exp", "factorial", "fft", "fill", "fixed", "flip", "float", "flop", "font", "fork", "format", "gamma", "garbage", "gc", "get", "getchar", "getf", "graph", "grep", "halt", "heap", "http", "idf", "in", "incomplete", "integral", "inverse", "is", "last",
+                "lengths", "line", "linestyle", "linewidth", "ln", "local", "lock", "log", "lower", "lu", "make", "max", "min", "mksa", "modes", "move", "name", "new", "null", "num", "on", "open", "out", "pack", "page", "pi", "point", "pointer", "possible",
+                "preemptive", "print", "printf", "punct", "put", "putchar", "putf", "qr", "random", "read", "rect", "refresh", "reidf", "reset", "resolution", "return", "routine", "scratch", "seconds", "set", "shorths", "show", "sin", "sinh", "size", "size = INT",
+                "small", "sound", "space", "sqrt", "stack", "stand", "stop", "style", "sub", "sv", "sweep", "system", "tan", "tanh", "tcp", "term", "text", "time", "upper", "value", "wait", "whole", "width", "will", "window", "write", "xdigit");
+        
+    Collections.addAll(PalabrasReservadas_Mayus, "ABS", "AND", "ARG", "BEGIN", "BIN", "BITS", "BOOL", "BYTES", "CHANNEL", "CHAR", "COMMENT", "COMPL", "COMPLEX", "CONJ", "DET", "DIVAB", "DO", "DOUBLE", "DOWN", "DYAD", "ELEM", "ELSIF", "END", "ENTIER", "EQ", "FALSE",
+                "FILE", "FLEX", "FORMAT", "GE", "GT", "IM", "INT", "INV", "LE", "LENG", "LIBRARY", "LONG", "LT", "LWB", "MINUSAB", "MOD", "MODAB", "MODE", "NE", "NIL", "NORM", "NOT", "ODD", "OP", "OR", "OVER", "OVERAB", "PIPE", "PLUSAB", "PLUSTO", "PR", "PRAGMAT", "PRELUDE",
+                "PRIO", "PROC", "RE", "REAL", "REF", "REPEAT", "REPR", "ROUND", "ROW", "RETURN", "SEMA", "SHL", "SHORT", "SHORTEN", "SHR", "SIGN", "SKIP", "SOUND", "STANDARD", "STRING", "STRUCT", "TIMESAB", "TRACE", "TRUE", "TRANSPUT", "UP", "UPB", "VOID", "WHILE", "XOR");
+    //Se llena arraylist con tipos de variables. 
+    Collections.addAll(TiposDeVariables, "CHAR", "INT", "REAL");
+
+    Collections.addAll(Comandos, "BEGIN", "read", "print", "FOR", "IF", "GOTO", "SKIP", "END", "DO", "OD", "FI", "ELSE");
+  }
+  
+  
 
     public static String[] palabras_reservadasLibelula
             = {"BEGIN", "CHAR", "ELSE", "END ", "IF ", "INTEGER", " MODULE", "Read",
@@ -29,7 +61,9 @@ public class Palabras_Reservadas {
             ={"BEGIN", "read", "print", "FOR", "IF", "GOTO", "SKIP", "END", "DO", "OD", "FI", "ELSE"};
     
     }
-    
+
+
+   
     
 
 //pendientes por hacer

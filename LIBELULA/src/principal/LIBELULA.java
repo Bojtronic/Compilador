@@ -23,11 +23,11 @@ public class LIBELULA {
         } else {
             String nombre_Archivo = archivo[0];
             nombre_correcto = admin_archivo.verificar_nombre(nombre_Archivo);
-            //Validar el nombre del archivo  -> nombre_correcto = t/f ///////////////////////
+       
             if ((nombre_correcto == true) ) {
               
       
-              admin_archivo.leerArchivo(nombre_Archivo);
+              admin_archivo.leerArchivo(nombre_Archivo, path);
             }
             
             else{
