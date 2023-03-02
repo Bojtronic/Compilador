@@ -9,9 +9,9 @@
 00008   Respuesta : CHAR;
 00009   Factor1, Factor2, Factor3, : REAL_
 00010 
-00011 BEGIN}}}
+00011 BEGIN+++
 00012 
-00012        ERROR 00215: El comando (BEGIN}}}) NO puede llevar punto y coma o algo adicional.
+00012        ERROR 00215: El comando (BEGIN+++) NO puede llevar punto y coma o algo adicional.
 00013 
 00014 (
 00015   *****************************************************************
